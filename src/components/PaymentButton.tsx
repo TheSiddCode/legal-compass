@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 
 declare global {
@@ -18,15 +19,46 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
   onSuccess,
   onFailure,
 }) => {
+  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
   console.log('PaymentButton rendered with amount:', amount);
-  
+
+  useEffect(() => {
+    const loadRazorpayScript = () => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      script.onload = () => setIsScriptLoaded(true);
+      document.body.appendChild(script);
+    };
+
+    if (!window.Razorpay) {
+      loadRazorpayScript();
+    } else {
+      setIsScriptLoaded(true);
+    }
+
+    return () => {
+      // Cleanup script when component unmounts
+      const script = document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]');
+      if (script) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
   const handlePayment = async () => {
+    if (!isScriptLoaded) {
+      onFailure(new Error('Razorpay SDK is not loaded yet'));
+      return;
+    }
+
     try {
       // Create order on the backend
       const response = await fetch('http://localhost:5001/api/payments/create-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
         body: JSON.stringify({ amount }),
       });
@@ -50,7 +82,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
         handler: async (response: any) => {
           try {
             // Verify payment on the backend
-            const verifyResponse = await fetch('/api/payments/verify', {
+            const verifyResponse = await fetch('http://localhost:5001/api/payments/verify', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -92,6 +124,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
   return (
     <Button
       onClick={handlePayment}
+      disabled={!isScriptLoaded}
       className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
     >
       Pay ₹{amount}
