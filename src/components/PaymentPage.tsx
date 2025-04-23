@@ -9,7 +9,6 @@ const PaymentPage: React.FC = () => {
     setIsProcessing(false);
     toast.success('Payment successful!');
     console.log('Payment successful:', response);
-    // Handle successful payment (e.g., update UI, redirect, etc.)
   };
 
   const handlePaymentFailure = (error: any) => {
