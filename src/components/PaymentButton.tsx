@@ -18,6 +18,8 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
   onSuccess,
   onFailure,
 }) => {
+  console.log('PaymentButton rendered with amount:', amount);
+  
   const handlePayment = async () => {
     try {
       // Create order on the backend
@@ -29,6 +31,8 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
         body: JSON.stringify({ amount }),
       });
 
+      console.log(response);
+      
       const order = await response.json();
 
       if (!response.ok) {

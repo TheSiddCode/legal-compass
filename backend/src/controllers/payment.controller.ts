@@ -16,7 +16,8 @@ export const createOrder = async (req: Request, res: Response) => {
     if (!razorpay) {
       return res.status(503).json({ message: 'Payment service not available' });
     }
-
+    console.log('Creating order with Razorpay:', req.body);
+    
     const { amount, currency = 'INR' } = req.body;
     const userId = req.user?._id; // Using _id instead of id for MongoDB documents
 

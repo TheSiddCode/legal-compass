@@ -18,7 +18,7 @@ const verifyPaymentValidation = [
 ];
 
 // Routes
-router.post('/create-order', authenticate, createOrderValidation, createOrder);
+router.post('/create-order', createOrderValidation, createOrder);
 router.post('/verify', authenticate, verifyPaymentValidation, verifyPayment);
 
 export default router; 

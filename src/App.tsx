@@ -18,6 +18,7 @@ import Auth from "./pages/Auth";
 import LawyerProfile from "./pages/LawyerProfile";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
+import PaymentPage from "./components/PaymentPage";
 import { useState } from "react";
 
 // Create query client with better error handling
@@ -64,6 +65,7 @@ const App = () => {
                   <Route path="/lawyer-profile" element={<LawyerProfile />} />
                   <Route path="/faq" element={<FAQ />} />
                   <Route path="*" element={<NotFound />} />
+                  <Route path="/payment" element={<PaymentPage />} />
                 </Routes>
               </main>
               <Footer />

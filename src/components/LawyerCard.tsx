@@ -1,4 +1,4 @@
-
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Star, MessageCircle, CreditCard, ExternalLink, Clock, FileText, Download } from "lucide-react";
 import { 
@@ -54,16 +54,15 @@ const LawyerCard = ({
   hasPdfAgreement = true,
   contactInfo
 }: LawyerCardProps) => {
+  const navigate = useNavigate();
   const [isPaid, setIsPaid] = useState(!!contactInfo);
   const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
   const [messageDialogOpen, setMessageDialogOpen] = useState(false);
   const [pdfDialogOpen, setPdfDialogOpen] = useState(false);
   
   const handlePayment = () => {
-    setTimeout(() => {
-      setIsPaid(true);
-      setPaymentDialogOpen(false);
-    }, 1500);
+    setPaymentDialogOpen(false);
+    navigate(`/payment?lawyerId=${id}&lawyerName=${name}&amount=99.00`);
   };
 
   const isAvailableNow = availability.toLowerCase().includes("available now");
