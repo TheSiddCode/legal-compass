@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import Razorpay from 'razorpay';
+import dotenv from 'dotenv';
+dotenv.config();
 
 let razorpay: Razorpay | null = null;
 
@@ -19,8 +21,9 @@ export const createOrder = async (req: Request, res: Response) => {
     console.log('Creating order with Razorpay:', req.body);
     
     const { amount, currency = 'INR' } = req.body;
-    const userId = req.user?._id; // Using _id instead of id for MongoDB documents
-
+    console.log('User ID:', req.user);
+    const userId = await req.user?._id; // Using _id instead of id for MongoDB documents
+    
     if (!userId) {
       return res.status(401).json({ message: 'User not authenticated' });
     }
