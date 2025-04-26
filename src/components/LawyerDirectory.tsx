@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, Filter, ChevronsUpDown, MessageCircle, Star } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -12,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import LawyerCard from "./LawyerCard";
+import { motion } from "framer-motion";
 
 const LAWYERS = [
   {
@@ -199,14 +199,14 @@ const LawyerDirectory = () => {
                 <span>Sort By: {
                   sortBy === "rating" ? "Highest Rating" :
                   sortBy === "experience" ? "Most Experience" :
-                  sortBy === "messages" ? "Available Messages" : ""
+                  "Most Free Messages"
                 }</span>
               </div>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="rating">Highest Rating</SelectItem>
               <SelectItem value="experience">Most Experience</SelectItem>
-              <SelectItem value="messages">Available Messages</SelectItem>
+              <SelectItem value="messages">Most Free Messages</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -246,25 +246,25 @@ const LawyerDirectory = () => {
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredLawyers.length > 0 ? (
-          filteredLawyers.map(lawyer => (
-            <LawyerCard key={lawyer.id} {...lawyer} />
-          ))
-        ) : (
-          <div className="col-span-full text-center py-12">
-            <p className="text-lg text-muted-foreground">No lawyers found matching your criteria.</p>
-            <Button variant="link" onClick={() => {
-              setSearchQuery("");
-              setSpecialization("");
-              setAvailabilityFilter("all");
-              setMessageAvailabilityFilter("all");
-            }}>
-              Clear all filters
-            </Button>
-          </div>
-        )}
-      </div>
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 pt-4"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: {
+            transition: {
+              staggerChildren: 0.08
+            }
+          }
+        }}
+      >
+        {filteredLawyers.map((lawyer, idx) => (
+          <motion.div key={lawyer.id} variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } }}>
+            <LawyerCard {...lawyer} />
+          </motion.div>
+        ))}
+      </motion.div>
     </div>
   );
 };

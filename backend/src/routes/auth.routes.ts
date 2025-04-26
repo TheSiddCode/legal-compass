@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { login, register, verifyToken } from '../controllers/auth.controller';
+import { authenticate } from '../middleware/auth.middleware';
 
 const router = Router();
 
@@ -20,6 +21,6 @@ const loginValidation = [
 // Routes
 router.post('/signup', registerValidation, register);
 router.post('/login', loginValidation, login);
-router.get('/verify', verifyToken);
+router.get('/verify', authenticate, verifyToken);
 
 export default router; 

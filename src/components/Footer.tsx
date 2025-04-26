@@ -1,6 +1,6 @@
-
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
+import { FaLinkedin, FaTwitter } from "react-icons/fa";
 import Logo from "./Logo";
 
 const Footer = () => {
@@ -17,17 +17,23 @@ const Footer = () => {
               Providing reliable legal assistance and connecting you with qualified lawyers for all your legal needs.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-primary-foreground hover:text-white">
-                <Facebook className="h-5 w-5" />
+              <a
+                href="https://www.linkedin.com/in/siddhant-pratap-singh-rajawat-0741b424a/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-300 transition"
+                aria-label="LinkedIn"
+              >
+                <FaLinkedin size={22} />
               </a>
-              <a href="#" className="text-primary-foreground hover:text-white">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-primary-foreground hover:text-white">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-primary-foreground hover:text-white">
-                <Linkedin className="h-5 w-5" />
+              <a
+                href="https://x.com/Siddhant07Singh"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-300 transition"
+                aria-label="Twitter"
+              >
+                <FaTwitter size={22} />
               </a>
             </div>
           </div>
@@ -76,7 +82,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="flex items-center">
                 <Phone className="h-4 w-4 mr-2" />
-                <span className="text-sm">+1 (555) 123-4567</span>
+                <span className="text-sm">9755967933</span>
               </li>
               <li className="flex items-center">
                 <Mail className="h-4 w-4 mr-2" />
@@ -84,7 +90,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <MapPin className="h-4 w-4 mr-2 mt-1" />
-                <span className="text-sm">123 Legal Street, Suite 100<br />Lawville, LA 90210</span>
+                <span className="text-sm">Jaypee University, Guna, Madhya Pradesh 241687</span>
               </li>
             </ul>
           </div>

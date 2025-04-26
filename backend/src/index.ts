@@ -7,7 +7,7 @@ import authRoutes from './routes/auth.routes';
 
 // Set environment variables directly for development
 process.env.PORT = process.env.PORT || '5001';
-//process.env.MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/legal-compass';
+process.env.MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://siddhantrajawat07:v0VMTmR8k19cfhsm@cluster0.a1ccuvu.mongodb.net/';
 process.env.JWT_SECRET = process.env.JWT_SECRET || 'dev-jwt-secret-key-change-in-production';
 process.env.RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || 'your-razorpay-key-id';
 process.env.RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || 'your-razorpay-key-secret';

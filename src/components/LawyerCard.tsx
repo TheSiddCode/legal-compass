@@ -1,14 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Star, MessageCircle, CreditCard, ExternalLink, Clock, FileText, Download } from "lucide-react";
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardFooter, 
-  CardHeader, 
-  CardTitle 
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -70,7 +63,7 @@ const LawyerCard = ({
   const messagePercentUsed = (freeMessagesUsed / freeMessagesLimit) * 100;
 
   return (
-    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300">
+    <Card className="overflow-visible hover:shadow-md transition-shadow duration-300">
       <div className="aspect-[3/2] w-full overflow-hidden relative">
         <img 
           src={image} 
@@ -87,12 +80,11 @@ const LawyerCard = ({
           </Badge>
         </div>
       </div>
-      
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
           <div>
-            <CardTitle className="text-xl">{name}</CardTitle>
-            <CardDescription className="mt-1">{specialization}</CardDescription>
+            <CardTitle className="text-xl break-words whitespace-normal">{name}</CardTitle>
+            <CardDescription className="mt-1 break-words whitespace-normal">{specialization}</CardDescription>
           </div>
           <div className="flex items-center">
             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -100,17 +92,15 @@ const LawyerCard = ({
           </div>
         </div>
       </CardHeader>
-      
       <CardContent className="pb-0">
         <div className="flex items-center space-x-2 mb-4">
           <Badge variant="secondary">{experience} Years Experience</Badge>
           <Badge variant="outline">Top Rated</Badge>
         </div>
-        
         {isPaid && contactInfo && (
-          <div className="mt-4 p-3 bg-secondary rounded-md">
+          <div className="mt-4 p-3 bg-secondary rounded-md space-y-1">
             <h4 className="text-sm font-medium mb-2">Contact Information</h4>
-            <div className="text-sm space-y-1">
+            <div className="text-sm space-y-1 break-words whitespace-normal">
               <p><span className="font-medium">Phone:</span> {contactInfo.phone}</p>
               <p><span className="font-medium">Email:</span> {contactInfo.email}</p>
               <p><span className="font-medium">Availability:</span> {contactInfo.availability}</p>
@@ -123,7 +113,6 @@ const LawyerCard = ({
             )}
           </div>
         )}
-
         {!isPaid && (
           <div className="mt-3">
             <div className="flex justify-between items-center text-sm mb-1">
@@ -139,11 +128,10 @@ const LawyerCard = ({
           </div>
         )}
       </CardContent>
-      
-      <CardFooter className="flex justify-between pt-4">
+      <CardFooter className="flex flex-col gap-2 pt-4">
         <Dialog open={messageDialogOpen} onOpenChange={setMessageDialogOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="w-full">
               <MessageCircle className="mr-2 h-4 w-4" />
               Message Lawyer
             </Button>
@@ -157,7 +145,6 @@ const LawyerCard = ({
                   : "You've used all your free messages with this lawyer. Purchase a consultation for unlimited messaging."}
               </DialogDescription>
             </DialogHeader>
-            
             <div className="space-y-4 py-4">
               {messagesRemaining > 0 ? (
                 <div>
@@ -174,7 +161,6 @@ const LawyerCard = ({
                 </div>
               )}
             </div>
-            
             <DialogFooter>
               <Button variant="outline" onClick={() => setMessageDialogOpen(false)}>
                 Cancel
@@ -196,11 +182,10 @@ const LawyerCard = ({
             </DialogFooter>
           </DialogContent>
         </Dialog>
-        
         {!isPaid ? (
           <Dialog open={paymentDialogOpen} onOpenChange={setPaymentDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm">
+              <Button size="sm" className="w-full">
                 <CreditCard className="mr-2 h-4 w-4" />
                 Pay & Book Advice
               </Button>
@@ -212,7 +197,6 @@ const LawyerCard = ({
                   Get access to {name}'s contact information and schedule a consultation.
                 </DialogDescription>
               </DialogHeader>
-              
               <div className="space-y-4 py-4">
                 <div className="border rounded-lg p-4">
                   <div className="flex justify-between items-center mb-2">
@@ -237,7 +221,6 @@ const LawyerCard = ({
                     </li>
                   </ul>
                 </div>
-                
                 <div className="flex items-center justify-center p-4">
                   <img 
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png" 
@@ -252,7 +235,6 @@ const LawyerCard = ({
                   />
                 </div>
               </div>
-              
               <DialogFooter>
                 <Button variant="outline" onClick={() => setPaymentDialogOpen(false)}>
                   Cancel
@@ -265,12 +247,11 @@ const LawyerCard = ({
             </DialogContent>
           </Dialog>
         ) : (
-          <Button size="sm">
+          <Button size="sm" className="w-full">
             <ExternalLink className="mr-2 h-4 w-4" />
             Schedule Meeting
           </Button>
         )}
-
         {/* PDF Agreement Dialog */}
         {hasPdfAgreement && (
           <Dialog open={pdfDialogOpen} onOpenChange={setPdfDialogOpen}>
@@ -281,11 +262,9 @@ const LawyerCard = ({
                   Review the terms and conditions of your legal consultation with {name}.
                 </DialogDescription>
               </DialogHeader>
-              
               <div className="mt-4 border rounded-lg p-5 bg-secondary/30 h-[400px] overflow-y-auto">
                 <h3 className="text-lg font-bold text-center mb-4">LEGAL CONSULTATION AGREEMENT</h3>
                 <p className="mb-3">This Legal Consultation Agreement (the "Agreement") is entered into between {name} ("Attorney") and you, the client ("Client").</p>
-                
                 <h4 className="font-bold mt-4 mb-2">1. SCOPE OF SERVICES</h4>
                 <p>Attorney agrees to provide legal consultation services to Client limited to:</p>
                 <ul className="list-disc pl-5 mb-3">
@@ -294,33 +273,9 @@ const LawyerCard = ({
                   <li>Preliminary review of documents</li>
                   <li>General legal advice within Attorney's area of expertise</li>
                 </ul>
-                
                 <h4 className="font-bold mt-4 mb-2">2. FEES</h4>
                 <p>Client agrees to pay Attorney a consultation fee of $99.00. This fee is non-refundable once consultation services have begun.</p>
-                
-                <h4 className="font-bold mt-4 mb-2">3. CONFIDENTIALITY</h4>
-                <p>Attorney will maintain client confidentiality in accordance with applicable ethical rules and regulations.</p>
-                
-                <h4 className="font-bold mt-4 mb-2">4. LIMITATIONS</h4>
-                <p>This consultation does not establish an ongoing attorney-client relationship beyond the scope of the consultation.</p>
-                
-                <h4 className="font-bold mt-4 mb-2">5. TERM</h4>
-                <p>This Agreement commences upon payment and continues until consultation services are completed.</p>
-                
-                <div className="mt-8 text-center text-sm text-muted-foreground">
-                  <p>Document ID: {id}-{new Date().toISOString().split('T')[0]}</p>
-                </div>
               </div>
-              
-              <DialogFooter className="flex-col sm:flex-row gap-2">
-                <Button variant="outline" onClick={() => setPdfDialogOpen(false)}>
-                  Close
-                </Button>
-                <Button>
-                  <Download className="mr-2 h-4 w-4" />
-                  Download PDF
-                </Button>
-              </DialogFooter>
             </DialogContent>
           </Dialog>
         )}

@@ -20,6 +20,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
   onFailure,
 }) => {
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
   console.log('PaymentButton rendered with amount:', amount);
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
 
     try {
       // Create order on the backend
-      const response = await fetch('http://localhost:5001/api/payments/create-order', {
+      const response = await fetch(`${API_URL}/api/payments/create-order`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -82,10 +83,11 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
         handler: async (response: any) => {
           try {
             // Verify payment on the backend
-            const verifyResponse = await fetch('http://localhost:5001/api/payments/verify', {
+            const verifyResponse = await fetch(`${API_URL}/api/payments/verify`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
               },
               body: JSON.stringify({
                 orderId: order.orderId,
